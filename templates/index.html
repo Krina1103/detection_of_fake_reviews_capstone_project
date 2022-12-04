@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Review Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+<body>
+ <div class="container">
+	<h1>Fake Review Detection</h1>
+
+    <form action="{{ url_for('predict')}}" method="POST">
+    	<input type="text" name="review" placeholder="Paste Review Here" required="required" />
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+ 
+  {% if prediction_text %}
+   {% if prediction_text == 'OR' %}
+        <div class="alert-success">
+          <p> This review is genuine or written by human </p>
+          <p> Probablity: {% print(prediction_probablity) %} % </p>
+        </div>
+   {%else%}
+        <div class="alert-danger">
+          <p> This review is fake or computer generated </p>
+          <p> Probablity: {% print(prediction_probablity) %} % </p>
+        </div>
+   {% endif %} 
+   <a href="/">Clear</a>
+  {% endif %}
+
+  
+ </div>
+</body>
+</html>
